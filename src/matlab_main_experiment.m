@@ -1,4 +1,4 @@
-function [] = matlab_optimizer(datasets, params)
+function [] = matlab_main_experiment(datasets, params)
 
 classifier = params.classifier;
 numDatasets = length(datasets);

@@ -1,4 +1,4 @@
-function [] = atsd_optimizer(datasets, params)
+function [] = atsd_main_experiment(datasets, params)
 
 classifier = params.classifier;
 numDatasets = length(datasets);

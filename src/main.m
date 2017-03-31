@@ -78,10 +78,10 @@ end
 delete(gcp('nocreate'));  
 parpool(15, 'IdleTimeout', 180);
 
-disp(['Running atsd_optimizer using ', params.classifier]);
+disp(['Running atsd_main_experiment using ', params.classifier]);
 atsd_main_experiment(datasets, params);
 
-disp(['Running matlab_optimizer using ', params.classifier]);
+disp(['Running matlab_main_experiment ', params.classifier]);
 matlab_main_experiment(datasets, params);
 
 disp('Run completed successfully.');
