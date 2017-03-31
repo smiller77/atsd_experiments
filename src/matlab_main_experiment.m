@@ -11,7 +11,6 @@ function [] = matlab_main_experiment(datasets, params)
 
     for i = 1:numDatasets
         disp(['  -> Running ', datasets{i}])
-
         for n = 1:numRuns
             disp(['    Average ', num2str(n), ' of ', num2str(numRuns)]);
 
