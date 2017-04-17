@@ -30,9 +30,9 @@ function [] = summarize_results(datasets, atsd_errors, matlab_errors, params)
     for j = 1:ftypes
         line = [line, ' & ', num2str(mean_ranks(j))];
     end
-    fprintf(outfile, '%s \\\\\n\n\n\n', line);
+    fprintf(outfile, '%s \\\\\n', line);
 
-    line = '';
+    line = '\n\n\n';
     for i = 1:ftypes
         line = [line, ' & ', algs{i}];
     end
