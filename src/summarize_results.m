@@ -6,7 +6,7 @@ close all;
 
 addpath utils/
 load(['outputs/raw_outputs/', optimizer, '_atsd_optimizer.mat']);
-%load(['outputs/raw_outputs/', optimizer, '_matlab_optimizer.mat']);
+load(['outputs/raw_outputs/', optimizer, '_matlab_optimizer.mat']);
 clearvars -except all_errors_moo all_errors_mat count_errors_moo count_errors_mat all_datas
 
 algs = {'None', '$\Fcal_1$', '$\Fcal_2$', '$\Fcal_3$', '$MAT$'};
