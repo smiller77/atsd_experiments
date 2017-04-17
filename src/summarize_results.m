@@ -6,10 +6,12 @@ close all;
 
 addpath utils/
 load(['outputs/raw_outputs/', optimizer, '_atsd_optimizer.mat']);
-%load(['outputs/raw_outputs/', optimizer, '_matlab_optimizer.mat']);
-clearvars -except all_errors_moo all_errors_mat count_errors_moo count_errors_mat all_datas
+load(['outputs/raw_outputs/', optimizer, '_matlab_optimizer.mat']);
+clearvars -except all_errors_moo all_errors_mat count_errors_moo count_errors_mat datasets optimizer
 
-algs = {'None', '$\Fcal_1$', '$\Fcal_2$', '$\Fcal_3$', '$MAT$'};
+outfile = fopen(['outputs/', optimizer, '_results.txt'], 'w');
+
+algs = {'None', '$Fcal_1$', '$Fcal_2$', '$Fcal_3$', '$MAT$'};
 tail = 'left';
 alpha = 0.1;
 
@@ -24,31 +26,28 @@ errors = errors./counts;
 mean_ranks = mean(ranks);
 
 
-disp('\bf Data Set & \bf Samples & \bf Features & \bf None & $\Fcal_1$ & \bf $\Fcal_2$ & $\Fcal_3$ & MAT\\')
-for i = 1:length(all_datas)
-  st = all_datas{i};
-  data = load(['~/Git/ClassificationDatasets/csv/', all_datas{i}, '.csv']);
+fprintf(outfile, '\\bf Data Set & \\bf Samples & \\bf Features & \\bf None & $Fcal_1$ & \\bf $Fcal_2$ & $Fcal_3$ & MAT\\\\\n');
+for i = 1:length(datasets)
+  st = datasets{i};
+  data = load(['../ClassificationDatasets/csv/', datasets{i}, '.csv']);
   st = [st, ' & ', num2str(size(data, 1)), ' & ', num2str(size(data, 2)-1)];
   for j = 1:size(errors, 2)
     st = [st, ' & ', clrs{floor(ranks(i,j))},' ', num2str(round(10000*errors(i, j))/100), ' (', num2str(ranks(i,j)), ')'];
   end
-  disp([st, ' \\']);
+  fprintf(outfile, '%s \\\\\n', st);
 end
 st = ' & &';
 for j = 1:size(errors, 2)
   st = [st, ' & ', num2str(mean_ranks(j))];
 end
-disp([st, ' \\'])
-
-disp(' ')
-disp(' ')
-disp(' ')
+fprintf(outfile, '%s \\\\\n\n\n\n', st);
 
 st = [''];
 for i = 1:size(errors, 2)
   st = [st, ' & ', algs{i}];
 end
-disp([st, ' \\']);
+fprintf(outfile, '%s \\\\\n', st);
+
 for i = 1:size(errors, 2)
   st = algs{i};
   for j = 1:size(errors, 2)
@@ -58,5 +57,5 @@ for i = 1:size(errors, 2)
       st = [st, ' & ', num2str(pZtest(i,j))];
     end
   end
-  disp([st, ' \\'])
+  fprintf(outfile, '%s \\\\\n', st);
 end

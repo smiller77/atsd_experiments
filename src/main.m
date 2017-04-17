@@ -79,11 +79,13 @@ function [] = main(optimizer)
     delete(gcp('nocreate'));  
     parpool(15, 'IdleTimeout', 180);
 
-    disp(['Running atsd_main_experiment using ', params.classifier]);
-    atsd_main_experiment(datasets, params);
+    %disp(['Running atsd_main_experiment using ', params.classifier]);
+    %atsd_main_experiment(datasets, params);
 
-    disp(['Running matlab_main_experiment ', params.classifier]);
+    disp(['Running matlab_main_experiment using ', params.classifier]);     
     matlab_main_experiment(datasets, params);
+
+	delete(gcp);
 
     disp('Run completed successfully.');
 end
