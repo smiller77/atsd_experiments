@@ -1,16 +1,23 @@
 function [x, fval] = matlab_search(data, params)
+	lb = params.lb;
+	ub = params.ub;
+
     minfn = @(z)kfoldLoss(blackbox(data, ...
                             'classifier', params.classifier, ...
                             'freeparams', z, ...
                             'dokfold', true));
 
-    opts = optimset('TolX', 5e-4, 'TolFun', 5e-4);
+    opts = optimset('TolX', 5e-4, 'TolFun', 5e-4, 'Display', 'none');
 
-    z = zeros(params.nvars, 1);
-    for i = 1:params.nvars
-        lb = params.lb(i);
-        ub = params.ub(i);
-        z(i) = (ub-lb)*rand()+lb;
-    end
-    [x, fval] = fminsearch(minfn, z, opts);
+    x = zeros(10, params.nvars);
+	fval = zeros(10, 1);
+	for j = 1:10
+    	for i = 1:params.nvars
+        	z(i) = (ub(i)-lb(i))*rand()+lb(i);
+		end
+    	[x(j,:), fval(j)] = fmincon(minfn, z, [], [], [], [], lb, ub, [], opts);
+	end
+
+	[fval, arg] = min(fval);
+	x = x(arg, :);
 end

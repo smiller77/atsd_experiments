@@ -1,5 +1,5 @@
 function [model] = blackbox(datatr, varargin)
-    args = struct('classifier','svm', 'freeparams',[], 'dokfold',false);
+	args = struct('classifier', 'svm', 'freeparams',[], 'dokfold',false);
     argNames = fieldnames(args);
 
     for pair = reshape(varargin, 2, [])
@@ -16,7 +16,6 @@ function [model] = blackbox(datatr, varargin)
     else
         c = [];
     end
-
 
     if(strcmp(args.classifier, 'svm'))
         model = fitcsvm(datatr(:, 1:end-1), datatr(:, end), ...
