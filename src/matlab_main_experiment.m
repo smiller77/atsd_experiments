@@ -1,12 +1,11 @@
-function [] = matlab_main_experiment(datasets, params)
+function [errors, timers] = matlab_main_experiment(datasets, params)
     classifier = params.classifier;
     numDatasets = length(datasets);
     numRuns = params.numRuns;
 
     % initialize result arrays
-    timers_mat = zeros(numDatasets, 1);
-    all_errors_mat = zeros(numDatasets, 1);
-    count_errors_mat = zeros(numDatasets, 1);
+    timers = zeros(numDatasets, 1);
+    errors = zeros(numDatasets, 1);
     all_fms_mat = zeros(numDatasets, 1);
 
     for i = 1:numDatasets
@@ -22,7 +21,7 @@ function [] = matlab_main_experiment(datasets, params)
 
             tic;
             x = matlab_search(datatr, params);
-            timers_mat(i) = timers_mat(i) + toc;
+            timers(i) = timers(i) + toc;
 
             % run desired classifier
             model = blackbox(datatr, ...
@@ -35,12 +34,13 @@ function [] = matlab_main_experiment(datasets, params)
             fms_best = mean(stats.fscore);
 
             all_fms_mat(i) = all_fms_mat(i) + fms_best;
-            all_errors_mat(i) = all_errors_mat(i) + err;
-            count_errors_mat(i) = count_errors_mat(i) + 1;
+            errors(i) = errors(i) + err;
 
-        save(['outputs/raw_outputs/', classifier, '_matlab_optimizer.mat']);
+            save(['outputs/raw_outputs/', classifier, '_matlab_optimizer.mat']);
         end
     end
 
+    errors = errors./numRuns;
+    timers = timers.num/Runs;
     save(['outputs/raw_outputs/', classifier, '_matlab_optimizer.mat']);
 end

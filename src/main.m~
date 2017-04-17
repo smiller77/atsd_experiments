@@ -1,6 +1,6 @@
 function [] = main(classifier)
     clc;
-    clearvars -except classifier;
+    clearvars -except optimizer;
     close all;
 
     addpath('atsd/');
@@ -48,7 +48,7 @@ function [] = main(classifier)
     params.classifier = classifier;   % classifier to run experiments on
     params.numRuns = 10;          % number of times to run experiment
     params.split = 0.8;        % percentage of data to be used for training
-    params.ftypes = 4;        % number of sacrificial function types
+    params.ftypes = 5;        % number of sacrificial set types
     params.moo = 1;         % multi-objecive or single objective
 
     % determine number of free parameters
@@ -85,7 +85,7 @@ function [] = main(classifier)
     disp(['Running matlab_main_experiment using ', params.classifier]);     
     matlab_errors = matlab_main_experiment(datasets, params);
     
-    summarize_results(datasets, atsd_errors, matlab_errors, params);
+    summarize_results(datasets, params.classifier);
 
 	delete(gcp);
 
