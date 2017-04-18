@@ -1,4 +1,4 @@
-function [] = matlab_main_experiment(datasets, params)
+function [] = matlab_experiment(datasets, params)
     classifier = params.classifier;
     numDatasets = length(datasets);
     numRuns = params.numRuns;
