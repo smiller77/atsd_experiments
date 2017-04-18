@@ -1,6 +1,6 @@
-function [] = main(optimizer)
+function [] = main(classifier)
     clc;
-    clearvars -except optimizer;
+    clearvars -except classifier;
     close all;
 
     addpath('atsd/');
@@ -45,10 +45,10 @@ function [] = main(optimizer)
       %'vertebral-column-2clases'
       };
 
-    params.classifier = optimizer;   % classifier to run experiments on
+    params.classifier = classifier;   % classifier to run experiments on
     params.numRuns = 10;          % number of times to run experiment
     params.split = 0.8;        % percentage of data to be used for training
-    params.ftypes = 5;        % number of sacrificial set types
+    params.ftypes = 4;        % number of sacrificial function types
     params.moo = 1;         % multi-objecive or single objective
 
     % determine number of free parameters
@@ -79,11 +79,21 @@ function [] = main(optimizer)
     delete(gcp('nocreate'));  
     parpool(15, 'IdleTimeout', 180);
 
+<<<<<<< HEAD
     disp(['Running atsd_experiment using ', params.classifier]);
     atsd_experiment(datasets, params);
 
     disp(['Running matlab_experiment using ', params.classifier]);     
     matlab_experiment(datasets, params);
+=======
+    %disp(['Running atsd_main_experiment using ', params.classifier]);
+    %atsd_errors = atsd_main_experiment(datasets, params);
+
+    disp(['Running matlab_main_experiment using ', params.classifier]);     
+    matlab_errors = matlab_main_experiment(datasets, params);
+    
+    summarize_results(datasets, atsd_errors, matlab_errors, params);
+>>>>>>> 89cb00f40793a1c3767970e7d0d7d5d56e5b88b5
 
 	delete(gcp('nocreate'));
 

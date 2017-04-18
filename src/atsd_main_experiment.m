@@ -1,13 +1,16 @@
+<<<<<<< HEAD:src/atsd_experiment.m
 function [] = atsd_experiment(datasets, params)
+=======
+function [errors, timers] = atsd_main_experiment(datasets, params)
+>>>>>>> 89cb00f40793a1c3767970e7d0d7d5d56e5b88b5:src/atsd_main_experiment.m
     classifier = params.classifier;
     numDatasets = length(datasets);
     numRuns = params.numRuns;
     ftypes = params.ftypes;
 
     % initialize result arrays
-    timers_moo = zeros(numDatasets, ftypes);
-    all_errors_moo = zeros(numDatasets, ftypes);
-    count_errors_moo = zeros(numDatasets, ftypes);
+    timers = zeros(numDatasets, ftypes);
+    errors = zeros(numDatasets, ftypes);
     all_fms_moo = zeros(numDatasets, ftypes);
 
     for i = 1:numDatasets
@@ -25,7 +28,7 @@ function [] = atsd_experiment(datasets, params)
 
                 tic;
                 x = anti_training(datatr, ftype, params);
-                timers_moo(i, ftype) = timers_moo(i, ftype) + toc;
+                timers(i, ftype) = timers(i, ftype) + toc;
 
                 err_best = intmax;
 
@@ -47,13 +50,14 @@ function [] = atsd_experiment(datasets, params)
                 end
 
                 all_fms_moo(i, ftype) = all_fms_moo(i, ftype) + fms_best;
-                all_errors_moo(i, ftype) = all_errors_moo(i, ftype) + err_best;
-                count_errors_moo(i, ftype) = count_errors_moo(i, ftype) + 1;
+                errors(i, ftype) = errors(i, ftype) + err_best;
 
                 save(['outputs/raw_outputs/', classifier, '_atsd_optimizer.mat']);
             end
         end
     end
-
+    
+    errors = errors./numRuns;
+    timers = timers./numRuns;
     save(['outputs/raw_outputs/', classifier, '_atsd_optimizer.mat']);
 end

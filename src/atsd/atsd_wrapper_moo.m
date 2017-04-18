@@ -64,6 +64,7 @@ function f = atsd_wrapper_moo(x, data, ftype, params)
             f_plus = [1-fp_sen; 1-fp_spe; fp_err];
             f_minus = [abs(.5-fm_err); abs(.5-fm_sen); abs(.5-fm_spe)];
         case 5
+            %same as ftype 4
             f_plus = [1-fp_sen; 1-fp_spe; fp_err];
             f_minus = [abs(.5-fm_err); abs(.5-fm_sen); abs(.5-fm_spe)];
     end
