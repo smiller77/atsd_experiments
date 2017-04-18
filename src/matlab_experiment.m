@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/matlab_experiment.m
-function [] = matlab_experiment(datasets, params)
-=======
-function [errors, timers] = matlab_main_experiment(datasets, params)
->>>>>>> 89cb00f40793a1c3767970e7d0d7d5d56e5b88b5:src/matlab_main_experiment.m
+function [errors, timers] = matlab__experiment(datasets, params)
     classifier = params.classifier;
     numDatasets = length(datasets);
     numRuns = params.numRuns;

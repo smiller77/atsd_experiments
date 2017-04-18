@@ -1,8 +1,4 @@
-<<<<<<< HEAD:src/atsd_experiment.m
-function [] = atsd_experiment(datasets, params)
-=======
-function [errors, timers] = atsd_main_experiment(datasets, params)
->>>>>>> 89cb00f40793a1c3767970e7d0d7d5d56e5b88b5:src/atsd_main_experiment.m
+function [errors, timers] = atsd_experiment(datasets, params)
     classifier = params.classifier;
     numDatasets = length(datasets);
     numRuns = params.numRuns;
