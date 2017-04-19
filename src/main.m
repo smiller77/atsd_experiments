@@ -82,8 +82,8 @@ function [] = main(classifier, numCores)
     %disp(['Running atsd_experiment using ', params.classifier]);
     %atsd_experiment(datasets, params);
 
-    disp(['Running matlab_experiment using ', params.classifier]);     
-    matlab_experiment(datasets, params);
+    %disp(['Running matlab_experiment using ', params.classifier]);     
+    %matlab_experiment(datasets, params);
     
     summarize_results(datasets, params);
 
