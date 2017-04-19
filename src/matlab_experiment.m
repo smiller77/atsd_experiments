@@ -1,4 +1,4 @@
-function [errors, timers] = matlab__experiment(datasets, params)
+function [errors, timers] = matlab_experiment(datasets, params)
     classifier = params.classifier;
     numDatasets = length(datasets);
     numRuns = params.numRuns;
