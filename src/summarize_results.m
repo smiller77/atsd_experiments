@@ -13,11 +13,9 @@ function [] = summarize_results(datasets, params)
     clrs = {'\cellcolor{red!50}', '\cellcolor{red!30}', '\cellcolor{red!10}', ...
                 '\cellcolor{yellow!25}', '\cellcolor{yellow!10}'};
 
-    % ===== old variable names ===== %
-    errors = [all_errors_moo(:, 1:end-1) all_errors_mat];
-    counts = [counts_errors_moo(:, 1:end-1) counts_errors_mat];
-    errors = errors./counts;
-    % ============================== %
+    %errors = [atsd_errors matlab_errors];
+    errors = [all_errors_moo(:, 1:end-1) errors];
+    errors = errors./10;
     
     [~, pZtest, ~, ranks] = friedman_demsar(errors, 'left', 0.1);
     mean_ranks = mean(ranks);
