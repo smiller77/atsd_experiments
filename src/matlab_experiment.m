@@ -36,11 +36,13 @@ function [errors, timers] = matlab__experiment(datasets, params)
             all_fms_mat(i) = all_fms_mat(i) + fms_best;
             errors(i) = errors(i) + err;
 
-            save(['outputs/raw_outputs/', classifier, '_matlab_optimizer.mat']);
+			results.matlab_errors = errors./n;
+			results.matlab_timers = timers./n;
+            save(['outputs/raw_outputs/', classifier, '_matlab_optimizer.mat'], results);
         end
     end
 
-    errors = errors./numRuns;
-    timers = timers.num/Runs;
-    save(['outputs/raw_outputs/', classifier, '_matlab_optimizer.mat']);
+    results.matlab_errors = errors./numRuns;
+    results.matlab_timers = timers./numRuns;
+    save(['outputs/raw_outputs/', classifier, '_matlab_optimizer.mat'], results);
 end

@@ -1,4 +1,4 @@
-function [errors, timers] = atsd_experiment(datasets, params)
+function [] = atsd_experiment(datasets, params)
     classifier = params.classifier;
     numDatasets = length(datasets);
     numRuns = params.numRuns;
@@ -48,12 +48,14 @@ function [errors, timers] = atsd_experiment(datasets, params)
                 all_fms_moo(i, ftype) = all_fms_moo(i, ftype) + fms_best;
                 errors(i, ftype) = errors(i, ftype) + err_best;
 
-                save(['outputs/raw_outputs/', classifier, '_atsd_optimizer.mat']);
+				results.atsd_errors = errors./n;
+				results.atsd_timers = timers./n;
+                save(['outputs/raw_outputs/', classifier, '_atsd_optimizer.mat'], results);
             end
         end
     end
     
-    errors = errors./numRuns;
-    timers = timers./numRuns;
-    save(['outputs/raw_outputs/', classifier, '_atsd_optimizer.mat']);
+    results.atsd_errors = errors./numRuns;
+    results.atsd_timers = timers./numRuns;
+    save(['outputs/raw_outputs/', classifier, '_atsd_optimizer.mat'], results);
 end

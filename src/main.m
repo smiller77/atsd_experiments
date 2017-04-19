@@ -1,6 +1,6 @@
-function [] = main(classifier)
+function [] = main(classifier, numCores)
     clc;
-    clearvars -except classifier;
+    clearvars -except classifier numCores;
     close all;
 
     addpath('atsd/');
@@ -77,17 +77,16 @@ function [] = main(classifier)
 
     % open up parallel pool
     delete(gcp('nocreate'));  
-    parpool(15, 'IdleTimeout', 180);
+    parpool(numCores, 'IdleTimeout', 180);
 
-    disp(['Running atsd_experiment using ', params.classifier]);
-    atsd_errors = atsd_experiment(datasets, params);
+    %disp(['Running atsd_experiment using ', params.classifier]);
+    %atsd_experiment(datasets, params);
 
     disp(['Running matlab_experiment using ', params.classifier]);     
-    matlab_errors = matlab_experiment(datasets, params);
+    matlab_experiment(datasets, params);
     
-    summarize_results(datasets, atsd_errors, matlab_errors, params);
+    summarize_results(datasets, params);
 
 	delete(gcp('nocreate'));
-
     disp('Run completed successfully.');
 end
