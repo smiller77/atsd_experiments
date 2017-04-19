@@ -14,7 +14,7 @@ function [] = summarize_results(datasets, params)
                 '\cellcolor{yellow!25}', '\cellcolor{yellow!10}'};
 
     %errors = [atsd_errors matlab_errors];
-    errors = [all_errors_moo(:, 1:end-1) all_errors_mat];
+    errors = [all_errors_moo(:, 1:end-1) 10*errors];
     errors = errors./10;
     
     [~, pZtest, ~, ranks] = friedman_demsar(errors, 'left', 0.1);
