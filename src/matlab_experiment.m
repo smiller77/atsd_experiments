@@ -8,6 +8,7 @@ function [] = matlab_experiment(datasets, params)
     errors = zeros(numDatasets, 1);
     all_fms_mat = zeros(numDatasets, 1);
 
+    disp(['Running matlab_experiment using ', classifier]);
     for i = 1:numDatasets
         disp(['  -> Running ', datasets{i}])
         for n = 1:numRuns
@@ -36,13 +37,16 @@ function [] = matlab_experiment(datasets, params)
             all_fms_mat(i) = all_fms_mat(i) + fms_best;
             errors(i) = errors(i) + err;
 
+			% save averages
 			results.matlab_errors = errors./n;
 			results.matlab_timers = timers./n;
-            save(['outputs/raw_outputs/', classifier, '_matlab_optimizer.mat'], results);
+            save(['outputs/raw_outputs/', classifier, ...
+					'_matlab_results.mat'], results);
         end
     end
 
+	% save averages
     results.matlab_errors = errors./numRuns;
     results.matlab_timers = timers./numRuns;
-    save(['outputs/raw_outputs/', classifier, '_matlab_optimizer.mat'], results);
+    save(['outputs/raw_outputs/', classifier, '_matlab_results.mat'], results);
 end

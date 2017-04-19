@@ -9,6 +9,7 @@ function [] = atsd_experiment(datasets, params)
     errors = zeros(numDatasets, ftypes);
     all_fms_moo = zeros(numDatasets, ftypes);
 
+    disp(['Running atsd_experiment using ', classifier]);
     for i = 1:numDatasets
         disp(['  -> Running ', datasets{i}]);
         for ftype = 1:ftypes
@@ -48,14 +49,17 @@ function [] = atsd_experiment(datasets, params)
                 all_fms_moo(i, ftype) = all_fms_moo(i, ftype) + fms_best;
                 errors(i, ftype) = errors(i, ftype) + err_best;
 
+				% save averages
 				results.atsd_errors = errors./n;
 				results.atsd_timers = timers./n;
-                save(['outputs/raw_outputs/', classifier, '_atsd_optimizer.mat'], results);
+                save(['outputs/raw_outputs/', classifier, ...
+							'_atsd_results.mat'], results);
             end
         end
     end
     
+	%save averages
     results.atsd_errors = errors./numRuns;
     results.atsd_timers = timers./numRuns;
-    save(['outputs/raw_outputs/', classifier, '_atsd_optimizer.mat'], results);
+    save(['outputs/raw_outputs/', classifier, '_atsd_results.mat'], results);
 end

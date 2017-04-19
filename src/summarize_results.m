@@ -2,10 +2,8 @@ function [] = summarize_results(datasets, params)
     classifier = params.classifier;
     ftypes = params.ftypes;
     
-    % ======= old file names ======= %
-    load(['outputs/raw_outputs/', classifier, '_atsd_optimizer.mat']);
-    load(['outputs/raw_outputs/', classifier, '_matlab_optimizer.mat']);
-    % ============================== %
+    load(['outputs/raw_outputs/', classifier, '_atsd_results.mat']);
+    load(['outputs/raw_outputs/', classifier, '_matlab_results.mat']);
 
     outfile = fopen(['outputs/', classifier, '_results.txt'], 'w');
 
@@ -13,9 +11,7 @@ function [] = summarize_results(datasets, params)
     clrs = {'\cellcolor{red!50}', '\cellcolor{red!30}', '\cellcolor{red!10}', ...
                 '\cellcolor{yellow!25}', '\cellcolor{yellow!10}'};
 
-    %errors = [atsd_errors matlab_errors];
-    errors = [all_errors_moo(:, 1:end-1) 10*errors];
-    errors = errors./10;
+    errors = [atsd_errors matlab_errors];
     
     [~, pZtest, ~, ranks] = friedman_demsar(errors, 'left', 0.1);
     mean_ranks = mean(ranks);
