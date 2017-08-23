@@ -19,7 +19,7 @@ function [] = main(classifier, numCores)
       'credit-approval';
       'cylinder-bands';
       'echocardiogram';
-      'fertility';
+      %'fertility';
       'haberman-survival';
       'heart-hungarian';
       'hepatitis';
@@ -32,10 +32,10 @@ function [] = main(classifier, numCores)
       'ozone';
       'parkinsons';
       'pima';
-      'pittsburg-bridges-T-OR-D';
+      %'pittsburg-bridges-T-OR-D';
       'planning';
       'ringnorm';
-      'spambase';
+      %'spambase';
       'spectf_train';
       'statlog-australian-credit';
       'statlog-german-credit';
@@ -65,6 +65,10 @@ function [] = main(classifier, numCores)
             params.nvars = 2;
             params.lb = [1; 1];
             params.ub = [50; 100];
+		case 'log'
+			params.nvars = 1;
+			params.lb = [0];
+			params.ub = [100];
         otherwise
             error('Unknown classifier %s', params.classifier);
     end
