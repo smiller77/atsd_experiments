@@ -10,7 +10,7 @@ function [] = main(classifier, numCores)
     datasets = {
       %'bank';
       'blood';
-      'breast-cancer-wisc-diag';
+      %'breast-cancer-wisc-diag';
       'breast-cancer-wisc-prog';
       'breast-cancer-wisc';
       'breast-cancer';
@@ -19,7 +19,7 @@ function [] = main(classifier, numCores)
       'credit-approval';
       'cylinder-bands';
       'echocardiogram';
-      'fertility';
+      %'fertility';
       'haberman-survival';
       'heart-hungarian';
       'hepatitis';
@@ -29,20 +29,20 @@ function [] = main(classifier, numCores)
       'musk-1';
       'oocytes_merluccius_nucleus_4d';
       'oocytes_trisopterus_nucleus_2f';
-      %'ozone';
-      %'parkinsons';
-      %'pima';
+      'ozone';
+      'parkinsons';
+      'pima';
       %'pittsburg-bridges-T-OR-D';
-      %'planning';
-      %'ringnorm';
+      'planning';
+      'ringnorm';
       %'spambase';
-      %'spectf_train';
-      %'statlog-australian-credit';
-      %'statlog-german-credit';
-      %'statlog-heart';
-      %'titanic';
+      'spectf_train';
+      'statlog-australian-credit';
+      'statlog-german-credit';
+      'statlog-heart';
+      'titanic';
       %'twonorm';
-      %'vertebral-column-2clases'
+      'vertebral-column-2clases'
       };
 
     params.classifier = classifier;   % classifier to run experiments on
@@ -65,6 +65,10 @@ function [] = main(classifier, numCores)
             params.nvars = 2;
             params.lb = [1; 1];
             params.ub = [50; 100];
+		case 'log'
+			params.nvars = 1;
+			params.lb = [0];
+			params.ub = [100];
         %{
         case 'rforest'
             params.nvars = 2;
@@ -79,11 +83,11 @@ function [] = main(classifier, numCores)
     delete(gcp('nocreate'));  
     parpool(numCores, 'IdleTimeout', 180);
 
-    %disp(['Running atsd_experiment using ', params.classifier]);
-    %atsd_experiment(datasets, params);
+    disp(['Running atsd_experiment using ', params.classifier]);
+    atsd_experiment(datasets, params);
 
-    %disp(['Running matlab_experiment using ', params.classifier]);     
-    %matlab_experiment(datasets, params);
+    disp(['Running matlab_experiment using ', params.classifier]);     
+    matlab_experiment(datasets, params);
     
     summarize_results(datasets, params);
 

@@ -42,6 +42,12 @@ function [model] = blackbox(datatr, varargin)
             'SplitCriterion', 'gdi', ...
             'CVPartition', c);
     end
+
+	if(strcmp(args.classifier, 'log'))
+		model = fitclinear(datatr(:, 1:end-1), datatr(:, end), ...
+			'Learner', 'logistic', ...
+			'Lambda', args.freeparams(1));
+	end
     %{
     if(strcmp(args.classifier, 'rforest'))
         options = statset('UseParallel', true);
