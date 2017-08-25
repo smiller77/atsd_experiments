@@ -1,4 +1,3 @@
-%Hello world can you hear me?
 function [] = main(classifier, numCores)
     clc;
     clearvars -except classifier numCores;
@@ -66,10 +65,10 @@ function [] = main(classifier, numCores)
             params.nvars = 2;
             params.lb = [1; 1];
             params.ub = [50; 100];
-		case 'log'
-			params.nvars = 1;
-			params.lb = [0];
-			params.ub = [100];
+        case 'log'
+            params.nvars = 1;
+            params.lb = [0];
+            params.ub = [100];
         otherwise
             error('Unknown classifier %s', params.classifier);
     end
