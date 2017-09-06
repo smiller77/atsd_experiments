@@ -27,8 +27,8 @@ function [] = main(classifier, numCores)
       'mammographic';
       'molec-biol-promoter';
       'musk-1';
-      'oocytes_merluccius_nucleus_4d';
-      'oocytes_trisopterus_nucleus_2f';
+      'oocytes-merluccius-nucleus-4d';
+      'oocytes-trisopterus-nucleus-2f';
       'ozone';
       'parkinsons';
       'pima';
@@ -36,7 +36,7 @@ function [] = main(classifier, numCores)
       'planning';
       'ringnorm';
       %'spambase';
-      'spectf_train';
+      'spectf';
       'statlog-australian-credit';
       'statlog-german-credit';
       'statlog-heart';
@@ -74,11 +74,11 @@ function [] = main(classifier, numCores)
     end
 
     % open up parallel pool
-    delete(gcp('nocreate'));  
-    parpool(numCores, 'IdleTimeout', 180);
+    %delete(gcp('nocreate'));  
+    %parpool(numCores, 'IdleTimeout', 300);
 
-    atsd_experiment(datasets, params);
-    matlab_experiment(datasets, params);
+    %atsd_experiment(datasets, params);
+    %matlab_experiment(datasets, params);
     summarize_results(datasets, params);
 
 	delete(gcp('nocreate'));

@@ -63,11 +63,12 @@ function [] = atsd_experiment(datasets, params)
 				results.atsd_errors_best_3 = errors_best_3./n;
 				results.atsd_timers = timers./n;
                 save(['outputs/raw_outputs/', classifier, ...
-							'_atsd_results.mat'], results);
+						'_atsd_results.mat'], 'atsd_results');
             end
         end
     end
     
 	%save results
-    save(['outputs/raw_outputs/', classifier, '_atsd_results.mat'], results);
+    save(['outputs/raw_outputs/', classifier, ...
+			'_atsd_results.mat'], 'atsd_results.mat');
 end
