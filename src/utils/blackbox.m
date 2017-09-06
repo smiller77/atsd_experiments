@@ -46,7 +46,8 @@ function [model] = blackbox(datatr, varargin)
     if(strcmp(args.classifier, 'log'))
         model = fitclinear(datatr(:, 1:end-1), datatr(:, end), ...
             'Learner', 'logistic', ...
-            'Lambda', args.freeparams(1));
+            'Lambda', args.freeparams(1), ...
+            'CVPartition', c);
     end
     %{
     if(strcmp(args.classifier, 'rforest'))

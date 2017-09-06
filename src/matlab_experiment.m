@@ -38,15 +38,14 @@ function [] = matlab_experiment(datasets, params)
             errors(i) = errors(i) + err;
 
 			% save averages
-			results.matlab_errors = errors./n;
-			results.matlab_timers = timers./n;
-            save(['outputs/raw_outputs/', classifier, ...
-					'_matlab_results.mat'], results);
+			matlab_results.matlab_errors = errors./n;
+			matlab_results.matlab_timers = timers./n;
+            save(['outputs/raw_outputs/', classifier, '_matlab_results.mat'], 'matlab_results');
         end
     end
 
 	% save averages
-    results.matlab_errors = errors./numRuns;
-    results.matlab_timers = timers./numRuns;
-    save(['outputs/raw_outputs/', classifier, '_matlab_results.mat'], results);
+    matlab_results.matlab_errors = errors./numRuns;
+    matlab_results.matlab_timers = timers./numRuns;
+    save(['outputs/raw_outputs/', classifier, '_matlab_results.mat'], 'matlab_results');
 end

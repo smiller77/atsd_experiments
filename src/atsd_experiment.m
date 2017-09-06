@@ -50,16 +50,15 @@ function [] = atsd_experiment(datasets, params)
                 errors(i, ftype) = errors(i, ftype) + err_best;
 
 				% save averages
-				results.atsd_errors = errors./n;
-				results.atsd_timers = timers./n;
-                save(['outputs/raw_outputs/', classifier, ...
-							'_atsd_results.mat'], results);
+				atsd_results.atsd_errors = errors./n;
+				atsd_results.atsd_timers = timers./n;
+                save(['outputs/raw_outputs/', classifier, '_atsd_results.mat'], 'atsd_results');
             end
         end
     end
     
 	%save averages
-    results.atsd_errors = errors./numRuns;
-    results.atsd_timers = timers./numRuns;
-    save(['outputs/raw_outputs/', classifier, '_atsd_results.mat'], results);
+    atsd_results.atsd_errors = errors./numRuns;
+    atsd_results.atsd_timers = timers./numRuns;
+    save(['outputs/raw_outputs/', classifier, '_atsd_results.mat'], 'atsd_results');
 end
