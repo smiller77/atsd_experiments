@@ -27,11 +27,11 @@ function [] = atsd_experiment(datasets, params)
                 pareto = anti_training(datatr, ftype, params);
                 timers(i, ftype) = timers(i, ftype) + toc;
 
-				disp(['    Pareto front size: ', size(pareto, 1)])
+                disp(['    Pareto front size: ', size(pareto, 1)])
 
-				err_all = 0;
+                err_all = 0;
                 err_best = intmax;
-				err_best3 = [intmax intmax intmax];
+                err_best3 = [intmax intmax intmax];
 
                 for j = 1:size(pareto, 1)
                     % run desired classifier
@@ -43,32 +43,32 @@ function [] = atsd_experiment(datasets, params)
                     yhat = predict(model, datate(:, 1:end-1));
                     err = calcError(yhat, datate(:, end));
 
-					[err_max,idx] = max(err_best3)
-					if err < err_max:
-						err_best3(idx) = err;
-					end
+                    [err_max,idx] = max(err_best3)
+                    if err < err_max:
+                        err_best3(idx) = err;
+                    end
 
                     err_best = min(err_best3);
-					err_all = err_all + err;
+                    err_all = err_all + err;
                 end
                 %all_fms_moo(i, ftype) = all_fms_moo(i, ftype) + fms_best;
-				errors_all(i, ftype) = errors_all(i,ftype) + ...
-											err_all/size(pareto,1);
+                errors_all(i, ftype) = errors_all(i,ftype) + ...
+                                            err_all/size(pareto,1);
                 errors_best(i, ftype) = errors_best(i, ftype) + err_best;
-				errors_best_3(i, ftype) = errors_best_3(i, ftype) + ...
-											mean(err_best3);
-				% save averages
-				results.atsd_errors_all = errors_all./n
-				results.atsd_errors_best = errors_best./n;
-				results.atsd_errors_best_3 = errors_best_3./n;
-				results.atsd_timers = timers./n;
+                errors_best_3(i, ftype) = errors_best_3(i, ftype) + ...
+                                            mean(err_best3);
+                % save averages
+                results.atsd_errors_all = errors_all./n
+                results.atsd_errors_best = errors_best./n;
+                results.atsd_errors_best_3 = errors_best_3./n;
+                results.atsd_timers = timers./n;
                 save(['outputs/raw_outputs/', classifier, ...
-						'_atsd_results.mat'], 'atsd_results');
+                        '_atsd_results.mat'], 'atsd_results');
             end
         end
     end
     
-	%save results
+    %save results
     save(['outputs/raw_outputs/', classifier, ...
-			'_atsd_results.mat'], 'atsd_results.mat');
+            '_atsd_results.mat'], 'atsd_results.mat');
 end

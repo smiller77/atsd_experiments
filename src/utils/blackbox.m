@@ -1,5 +1,5 @@
 function [model] = blackbox(datatr, varargin)
-	args = struct('classifier', 'svm', 'freeparams',[], 'dokfold',false);
+    args = struct('classifier', 'svm', 'freeparams',[], 'dokfold',false);
     argNames = fieldnames(args);
 
     for pair = reshape(varargin, 2, [])

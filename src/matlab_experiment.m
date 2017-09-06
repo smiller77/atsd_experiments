@@ -37,14 +37,14 @@ function [] = matlab_experiment(datasets, params)
             all_fms_mat(i) = all_fms_mat(i) + fms_best;
             errors(i) = errors(i) + err;
 
-			% save averages
-			matlab_results.matlab_errors = errors./n;
-			matlab_results.matlab_timers = timers./n;
+            % save averages
+            matlab_results.matlab_errors = errors./n;
+            matlab_results.matlab_timers = timers./n;
             save(['outputs/raw_outputs/', classifier, '_matlab_results.mat'], 'matlab_results');
         end
     end
 
-	% save averages
+    % save averages
     matlab_results.matlab_errors = errors./numRuns;
     matlab_results.matlab_timers = timers./numRuns;
     save(['outputs/raw_outputs/', classifier, '_matlab_results.mat'], 'matlab_results');

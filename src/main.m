@@ -81,6 +81,6 @@ function [] = main(classifier, numCores)
     %matlab_experiment(datasets, params);
     summarize_results(datasets, params);
 
-	delete(gcp('nocreate'));
+    delete(gcp('nocreate'));
     disp('Run completed successfully.');
 end
