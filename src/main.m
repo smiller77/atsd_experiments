@@ -78,7 +78,7 @@ function [] = main(classifier, numCores)
     %parpool(numCores, 'IdleTimeout', 300);
 
     atsd_experiment(datasets, params);
-    matlab_experiment(datasets, params);
+    %matlab_experiment(datasets, params);
     summarize_results(datasets, params);
 
     delete(gcp('nocreate'));

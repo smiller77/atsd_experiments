@@ -58,10 +58,10 @@ function [] = atsd_experiment(datasets, params)
                 errors_best_3(i, ftype) = errors_best_3(i, ftype) + ...
                                             mean(err_best3);
                 % save averages
-                results.atsd_errors_all = errors_all./n
-                results.atsd_errors_best = errors_best./n;
-                results.atsd_errors_best_3 = errors_best_3./n;
-                results.atsd_timers = timers./n;
+                atsd_results.atsd_errors_all = errors_all./n
+                atsd_results.atsd_errors_best = errors_best./n;
+                atsd_results.atsd_errors_best_3 = errors_best_3./n;
+                atsd_results.atsd_timers = timers./n;
                 save(['outputs/raw_outputs/', classifier, ...
                         '_atsd_results.mat'], 'atsd_results');
             end
@@ -70,5 +70,5 @@ function [] = atsd_experiment(datasets, params)
     
     %save results
     save(['outputs/raw_outputs/', classifier, ...
-            '_atsd_results.mat'], 'atsd_results.mat');
+            '_atsd_results.mat'], 'atsd_results');
 end
