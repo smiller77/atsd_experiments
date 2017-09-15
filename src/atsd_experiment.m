@@ -6,7 +6,9 @@ function [] = atsd_experiment(datasets, params)
 
     % initialize result arrays
     timers = zeros(numDatasets, ftypes);
-    errors = zeros(numDatasets, ftypes);
+    errors_all = zeros(numDatasets, ftypes);
+    errors_best = zeros(numDatasets, ftypes);
+    errors_best_3 = zeros(numDatasets, ftypes);
     all_fms_moo = zeros(numDatasets, ftypes);
 
     disp(['Running atsd_experiment using ', classifier]);
@@ -26,12 +28,12 @@ function [] = atsd_experiment(datasets, params)
                 tic;
                 pareto = anti_training(datatr, ftype, params);
                 timers(i, ftype) = timers(i, ftype) + toc;
-
-                disp(['    Pareto front size: ', size(pareto, 1)])
+                
+                disp(['    Pareto front size: ', int2str(size(pareto, 1))])
 
                 err_all = 0;
                 err_best = intmax;
-                err_best3 = [intmax intmax intmax];
+                err_best3 = ones(1,min(3, size(pareto, 1)))*double(intmax);
 
                 for j = 1:size(pareto, 1)
                     % run desired classifier
@@ -43,8 +45,8 @@ function [] = atsd_experiment(datasets, params)
                     yhat = predict(model, datate(:, 1:end-1));
                     err = calcError(yhat, datate(:, end));
 
-                    [err_max,idx] = max(err_best3)
-                    if err < err_max:
+                    [err_max,idx] = max(err_best3);
+                    if err < err_max
                         err_best3(idx) = err;
                     end
 
@@ -58,7 +60,7 @@ function [] = atsd_experiment(datasets, params)
                 errors_best_3(i, ftype) = errors_best_3(i, ftype) + ...
                                             mean(err_best3);
                 % save averages
-                atsd_results.atsd_errors_all = errors_all./n
+                atsd_results.atsd_errors_all = errors_all./n;
                 atsd_results.atsd_errors_best = errors_best./n;
                 atsd_results.atsd_errors_best_3 = errors_best_3./n;
                 atsd_results.atsd_timers = timers./n;

@@ -3,7 +3,7 @@ function [x, f, exitflag] = anti_training(data, ftype, params)
     lambda = 0.5;
 
     if params.moo == 1
-        optimoptions = gaoptimset('PopulationSize', popSize, 'UseParallel', false);
+        optimoptions = gaoptimset('PopulationSize', popSize, 'UseParallel', true);
         [x, f, exitflag] = gamultiobj(@(x)(atsd_wrapper_moo(x, data, ftype, params)), ...
             params.nvars, [], [], [], [], params.lb, params.ub, optimoptions);
 
