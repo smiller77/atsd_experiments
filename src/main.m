@@ -74,8 +74,8 @@ function [] = main(classifier, numCores)
     end
 
     % open up parallel pool
-    delete(gcp('nocreate'));  
-    parpool(numCores, 'IdleTimeout', 300);
+    %delete(gcp('nocreate'));  
+    %parpool(numCores, 'IdleTimeout', 300);
 
     atsd_experiment(datasets, params);
     %matlab_experiment(datasets, params);

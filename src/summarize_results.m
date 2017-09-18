@@ -1,18 +1,18 @@
 function [] = summarize_results(datasets, params)
     classifier = params.classifier;
-    optimizers = params.ftypes + 1;
+    optimizers = params.ftypes;
     
     load(['outputs/raw_outputs/', classifier, '_atsd_results.mat']);
     %load(['outputs/raw_outputs/', classifier, '_matlab_results.mat']);
 
-    outfile = fopen(['outputs/', classifier, '_results.txt'], 'w');
+    outfile = fopen(['outputs/', classifier, '_best_results.txt'], 'w');
 
     algs = {'None', '$Fcal_1$', '$Fcal_2$', '$Fcal_3$', '$MAT$'};
     clrs = {'\cellcolor{red!50}', '\cellcolor{red!30}', '\cellcolor{red!10}', ...
                 '\cellcolor{yellow!25}', '\cellcolor{yellow!10}'};
 
     %errors = [atsd_results.atsd_errors matlab_results.matlab_errors];
-    errors = atsd_results.atsd_errors
+    errors = atsd_results.atsd_errors_best;
 
     [~, pZtest, ~, ranks] = friedman_demsar(errors, 'left', 0.1);
     mean_ranks = mean(ranks);
