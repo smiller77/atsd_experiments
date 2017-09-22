@@ -1,6 +1,6 @@
-function [] = main(classifier, numCores)
+function [] = main(classifier, numCores, useParallel)
     clc;
-    clearvars -except classifier numCores;
+    clearvars -except classifier numCores useParallel;
     close all;
 
     addpath('atsd/');
@@ -46,6 +46,7 @@ function [] = main(classifier, numCores)
       };
 
     params.classifier = classifier;   % classifier to run experiments on
+	params.parallel = useParallel;   % whether to use parallel processing
     params.numRuns = 10;          % number of times to run experiment
     params.split = 0.8;        % percentage of data to be used for training
     params.ftypes = 4;        % number of sacrificial function types
@@ -72,14 +73,15 @@ function [] = main(classifier, numCores)
         otherwise
             error('Unknown classifier %s', params.classifier);
     end
+    
+	if params.useParallel
+    	delete(gcp('nocreate'));  
+    	parpool(numCores, 'IdleTimeout', 300);
+	end
 
-    % open up parallel pool
-    %delete(gcp('nocreate'));  
-    %parpool(numCores, 'IdleTimeout', 300);
-
-    %atsd_experiment(datasets, params);
+    atsd_experiment(datasets, params);
     %matlab_experiment(datasets, params);
-    summarize_results(datasets, params);
+    %summarize_results(datasets, params);
 
     delete(gcp('nocreate'));
     disp('Run completed successfully.');
