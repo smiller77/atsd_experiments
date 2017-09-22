@@ -1,3 +1,3 @@
-function [err] = calcError(actual, prediction)
-	err = sum(actual ~= prediction)/length(prediction);
+function [err] = calcError(yhat, y)
+	err = sum(y ~= yhat)/length(y);
 end

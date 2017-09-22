@@ -1,4 +1,4 @@
-function stats = calcStats(y, yhat)
+function stats = calcStats(yhat, y)
     % INPUT
     % y = true class labels
     % yhat = predicted class labels
@@ -30,8 +30,7 @@ function stats = calcStats(y, yhat)
     [TP, TN, FP, FN] = deal(zeros(numClasses,1));
     for class = 1:numClasses
        TP(class) = confusionMat(class,class);
-       tempMat = confusionMat([1:class-1,class+1:end], [1:class-1,class+1:end]);
-       TN(class) = sum(sum(tempMat));
+       TN(class) = sum(sum(confusionMat([1:class-1,class+1:end], [1:class-1,class+1:end])));
        FP(class) = sum(confusionMat(:,class))-TP(class);
        FN(class) = sum(confusionMat(class,:))-TP(class);
     end
@@ -57,4 +56,3 @@ function stats = calcStats(y, yhat)
         stats.groupOrder = gorder;
     end
 end
-    
