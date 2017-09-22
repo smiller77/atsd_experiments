@@ -74,7 +74,7 @@ function [] = main(classifier, numCores, useParallel)
             error('Unknown classifier %s', params.classifier);
     end
     
-	if params.useParallel
+	if params.parallel
     	delete(gcp('nocreate'));  
     	parpool(numCores, 'IdleTimeout', 300);
 	end

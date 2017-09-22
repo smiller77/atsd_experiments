@@ -53,8 +53,8 @@ function [] = atsd_experiment(datasets, params)
 
                     yhat = predict(model, datate(:, 1:end-1));
                     stats = calcStats(yhat, datate(:, end));
-                    err = 1 - stats.accuracy;
-                    fms = stats.fscore;
+                    err = 1 - mean(stats.accuracy);
+                    fms = mean(stats.fscore);
 
                     % calc error stats
                     [err_max,idx] = max(err_best3);
