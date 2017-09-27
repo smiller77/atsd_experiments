@@ -14,6 +14,8 @@ function [] = atsd_experiment(datasets, params)
     fscores_all = zeros(numDatasets, ftypes);
     fscores_best = zeros(numDatasets, ftypes);
     fscores_best3 = zeros(numDatasets, ftypes);
+    
+    atsd_results.datasets = datasets;
 
     disp(['Running atsd_experiment using ', classifier]);
     for i = 1:numDatasets
